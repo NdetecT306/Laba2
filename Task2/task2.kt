@@ -1,35 +1,55 @@
-import java.util.Scanner;
+ import java.util.Scanner
 import java.util.InputMismatchException
+import java.util.Vector
 fun main() {
     val scanner = Scanner(System.`in`)
-    var number: Int
-    while (true) {
-        try {
-            number = scanner.nextInt()
-            break // Exit the loop if input is valid
+    val numbers: Int = try {
+        scanner.nextInt()
+    } catch (e: InputMismatchException) {
+        println("Not a number.")
+        return
+    }
+    var max = 0
+    if (numbers <= 0) {
+        println("That is impossible.")
+        return
+    }
+    val clumba = Vector<Int>()
+    for (i in 0 until numbers) {
+        val flower: Int = try {
+            scanner.nextInt()
         } catch (e: InputMismatchException) {
-            println("Это не число. Попробуйте снова.")
-            scanner.nextLine() // Clear invalid input from scanner
+            println("Not a number.")
+            return
+        }
+        if (flower > 0) {
+            clumba.add(flower)
+        }
+        if (flower > max) {
+            max = flower
         }
     }
-    while (number <= 0 || number > 26) {
-        print("Неправильное число. Попробуйте снова: ")
-        try {
-            number = scanner.nextInt()
-            scanner.nextLine() // Consume newline
-        } catch (e: InputMismatchException) {
-            println("Это не число. Попробуйте снова.")
-            scanner.nextLine() // Clear invalid input from scanner
-            continue // Go to next loop iteration
-        }
+    val poliv: Int = try {
+        scanner.nextInt()
+    } catch (e: InputMismatchException) {
+        println("Not a number.")
+        return
     }
-    val mystring = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    var point = number - 1
-    while (point >= 0) {
-        for (i in number - 1 downTo point) {
-            print("${mystring[i]} ")
-        }
-        point--
-        println()
+    if (poliv < max) {
+        println("Go buy a new watering can")
+        return
     }
+    var step = 0
+    var perem = poliv
+    for (i in 0 until clumba.size) {
+        if (perem < clumba[i]) {
+            step += (i * 2 + 1)
+            perem = poliv
+        } else {
+            step += 1
+        }
+        perem -= clumba[i]
+    }
+    println(step)
 }
+
