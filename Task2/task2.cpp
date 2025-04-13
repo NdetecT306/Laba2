@@ -8,6 +8,7 @@ int main()
     cin >> numbers;
     if (numbers <= 0){
             cout << "Быть не может";
+            return 0;
     }
     vector<int> clumba;
     for (int i = 0; i < numbers; ++i) {
@@ -24,7 +25,11 @@ int main()
     }
     int poliv;
     cin >> poliv;
-    if (poliv < max) cout << " Как купишь новую лейку - приходи.";
+    if (poliv < max)
+    {
+        cout << " Как купишь новую лейку - приходи.";
+        return 0;
+    }
     int step = 0;
     int perem = poliv;
     for (int i = 0; i < clumba.size();i++)
